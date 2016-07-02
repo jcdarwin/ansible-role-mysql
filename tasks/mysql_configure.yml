@@ -1,0 +1,33 @@
+---
+
+- include_vars: "defaults/main.yml"
+
+- name: create administrator user and grant all privileges on all dbs
+  mysql_user:
+    state=present
+    name=administrator
+    password="{{ ansible_role_mysql.db_password }}"
+    priv=*.*:ALL
+    login_user=root
+    login_password="{{ ansible_role_mysql.password }}"
+  tags: configure
+
+- name: create our project db
+  mysql_db:
+    db="{{ ansible_role_mysql.db }}"
+    encoding="{{ ansible_role_mysql.encoding }}"
+    collation="{{ ansible_role_mysql.collation }}"
+    state=present
+    login_user=root
+    login_password="{{ ansible_role_mysql.password }}"
+  tags: configure
+
+- name: create database user and grant all privileges on the project db
+  mysql_user:
+    state=present
+    name="{{ ansible_role_mysql.db_user }}"
+    password="{{ ansible_role_mysql.db_password }}"
+    priv="{{ ansible_role_mysql.db }}".*:ALL
+    login_user=root
+    login_password="{{ ansible_role_mysql.password }}"
+  tags: configure

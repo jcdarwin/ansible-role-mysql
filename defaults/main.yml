@@ -1,0 +1,13 @@
+---
+# defaults file for ansible-role-mysql
+
+ansible_role_mysql:
+  user: root
+  password: changeme
+  db: whatever
+  db_host: localhost
+  db_user: whatever
+  db_password: changeme
+  encoding: utf8
+  collation: utf8_unicode_ci
+

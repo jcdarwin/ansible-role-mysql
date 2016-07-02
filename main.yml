@@ -1,0 +1,13 @@
+---
+
+- hosts: whatever
+  remote_user: root
+  become: true
+  become_user: root
+  tags: mysql
+  handlers:
+  - include: handlers/main.yml
+  tasks:
+  - include: tasks/mysql_install.yml
+  - include: tasks/mysql_secure.yml
+  - include: tasks/mysql_configure.yml
