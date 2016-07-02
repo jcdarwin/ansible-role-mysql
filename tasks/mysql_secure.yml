@@ -5,10 +5,9 @@
 - name: update mysql root password
   mysql_user:
     name=root
-    host={{ item }}
-    password="{{ ansible_role_mysqlpassword }}"
+    password="{{ ansible_role_mysql.password }}"
+    host="{{ item }}"
     login_user=root
-    login_password="{{ ansible_role_mysqlpassword }}"
   with_items:
     - "{{ ansible_hostname }}"
     - 127.0.0.1
@@ -21,18 +20,17 @@
     dest=/root/.my.cnf
     owner=root
     group=root mode=0600
-  sudo: yes
 
 - name: delete anonymous mysql user
   mysql_user:
     name=""
     state=absent
     login_user=root
-    login_password="{{ ansible_role_mysqlpassword }}"
+    login_password="{{ ansible_role_mysql.password }}"
 
 - name: remove mysql test database
   mysql_db:
     name=test
     state=absent
     login_user=root
-    login_password="{{ ansible_role_mysqlpassword }}"
+    login_password="{{ ansible_role_mysql.password }}"

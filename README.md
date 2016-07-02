@@ -75,8 +75,7 @@ Running the playbook:
     ansible-playbook -l whatever main.yml -i ../vagrant/ansible/hosts
 
     # Check that our packages have been installed
-    ansible -m shell -a 'zip -h' whatever -i ../vagrant/ansible/hosts
-
+    ansible -m shell -a 'echo "show databases;" | mysql -u root -pchangeme' whatever -i ../vagrant/ansible/hosts
 
 License
 -------
