@@ -1,7 +1,7 @@
 ansible-role-mysql
 ==================
 
-An Ansible role, available via [Ansible Galaxy](https://galaxy.ansible.com), that installs and configures mysql.
+An Ansible role, available via [Ansible Galaxy](https://galaxy.ansible.com), that installs and configures mysql on Ubuntu.
 
 This role works with [our repo to create a vagrant virtualbox vm](https://github.com/jcdarwin/ansible-roles-vagrant), but is easily modifed to work with actual ubuntu boxes.
 

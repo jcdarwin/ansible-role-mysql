@@ -1,6 +1,6 @@
 galaxy_info:
   author: Jason Darwin
-  description:
+  description: An Ansible role that installs and configures mysql on Ubuntu.
   company: meBooks
 
   # If the issue tracker for your role is not on github, uncomment the
