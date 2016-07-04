@@ -4,7 +4,9 @@
 ansible_role_mysql:
   user: root
   password: changeme
-  db: whatever
+  dbs:
+  - whatever
+  - whichever
   db_host: localhost
   db_user: whatever
   db_password: changeme

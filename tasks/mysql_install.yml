@@ -7,6 +7,19 @@
   with_items:
     - mysql-server
     - python-mysqldb
-    - libapache2-mod-auth-mysql
   notify: start mysql
   tags: install
+
+- name: Copy mysql.cnf to fix Craft issues with MYSQL 5.7+
+  template:
+    src=my.cnf.j2
+    dest=/etc/mysql/
+    owner=root
+    group=root mode=0600
+
+- name: Set up a cron to keep mysql optimised
+  cron:
+    name="mysqlcheck optimise"
+    minute="33"
+    hour="4"
+    job="mysqlcheck -o --all-databases > /dev/null 2>&1"

@@ -12,22 +12,24 @@
     login_password="{{ ansible_role_mysql.password }}"
   tags: configure
 
-- name: create our project db
+- name: create our project databases
   mysql_db:
-    db="{{ ansible_role_mysql.db }}"
+    db="{{ item }}"
     encoding="{{ ansible_role_mysql.encoding }}"
     collation="{{ ansible_role_mysql.collation }}"
     state=present
     login_user=root
     login_password="{{ ansible_role_mysql.password }}"
+  with_items: "{{ ansible_role_mysql.dbs }}"
   tags: configure
 
-- name: create database user and grant all privileges on the project db
+- name: create database user and grant all privileges on the project databases
   mysql_user:
     state=present
     name="{{ ansible_role_mysql.db_user }}"
     password="{{ ansible_role_mysql.db_password }}"
-    priv="{{ ansible_role_mysql.db }}".*:ALL
+    priv="{{ item }}".*:ALL
     login_user=root
     login_password="{{ ansible_role_mysql.password }}"
+  with_items: "{{ ansible_role_mysql.dbs }}"
   tags: configure
