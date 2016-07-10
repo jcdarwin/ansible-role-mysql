@@ -13,6 +13,7 @@
     - 127.0.0.1
     - ::1
     - localhost
+  tags: secure
 
 - name: copy user my.cnf file with root passwd credentials
   template:
@@ -20,6 +21,7 @@
     dest=/root/.my.cnf
     owner=root
     group=root mode=0600
+  tags: secure
 
 - name: delete anonymous mysql user
   mysql_user:
@@ -27,6 +29,7 @@
     state=absent
     login_user=root
     login_password="{{ ansible_role_mysql.password }}"
+  tags: secure
 
 - name: remove mysql test database
   mysql_db:
@@ -34,3 +37,4 @@
     state=absent
     login_user=root
     login_password="{{ ansible_role_mysql.password }}"
+  tags: secure
