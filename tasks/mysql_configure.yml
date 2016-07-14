@@ -4,6 +4,7 @@
 
 # We need to remove ONLY_FULL_GROUP_BY from the sql_mode:
 # http://craftcms.stackexchange.com/questions/12084/getting-this-sql-error-group-by-incompatible-with-sql-mode-only-full-group-by
+# https://www.sitepoint.com/quick-tip-how-to-permanently-change-sql-mode-in-mysql/
 # Although setting the sql_mode in /etc/mysql/my.cnf should work, it doesn't seem to
 # be picked up when mysqld is run under Ubuntu 16.04.
 # Prove that this works by starting a mysql session and running:
