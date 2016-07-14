@@ -13,7 +13,7 @@
 - name: Copy mysql.cnf to fix Craft issues with MYSQL 5.7+
   template:
     src=my.cnf.j2
-    dest=/etc/mysql/
+    dest=/etc/mysql/my.cnf
     owner=root
     group=root mode=0600
   tags: install

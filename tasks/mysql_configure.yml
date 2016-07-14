@@ -2,6 +2,19 @@
 
 - include_vars: "defaults/main.yml"
 
+# We need to remove ONLY_FULL_GROUP_BY from the sql_mode:
+# http://craftcms.stackexchange.com/questions/12084/getting-this-sql-error-group-by-incompatible-with-sql-mode-only-full-group-by
+# Although setting the sql_mode in /etc/mysql/my.cnf should work, it doesn't seem to
+# be picked up when mysqld is run under Ubuntu 16.04.
+# Prove that this works by starting a mysql session and running:
+#  SELECT @@sql_mode;
+- name: ensure craft cms works with sql mode
+  lineinfile: dest=/lib/systemd/system/mysql.service
+              regexp='^ExecStart=\/usr\/sbin\/mysqld'
+              line='ExecStart=/usr/sbin/mysqld --sql-mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+              state=present
+  tags: configure
+
 - name: create administrator user and grant all privileges on all dbs
   mysql_user:
     state=present
