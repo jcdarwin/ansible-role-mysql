@@ -9,10 +9,18 @@
 # be picked up when mysqld is run under Ubuntu 16.04.
 # Prove that this works by starting a mysql session and running:
 #  SELECT @@sql_mode;
+# - name: ensure craft cms works with sql mode
+#   lineinfile: dest=/lib/systemd/system/mysql.service
+#               regexp='^ExecStart=\/usr\/sbin\/mysqld'
+#               line='ExecStart=/usr/sbin/mysqld --sql-mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+#               state=present
+#   tags: configure
+
 - name: ensure craft cms works with sql mode
-  lineinfile: dest=/lib/systemd/system/mysql.service
-              regexp='^ExecStart=\/usr\/sbin\/mysqld'
-              line='ExecStart=/usr/sbin/mysqld --sql-mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+  lineinfile: dest=/usr/share/mysql/mysql-systemd-start
+              regexp='mysql -u administrator'
+              insertafter='server_up=true'
+              line='mysql -u administrator -p{{ ansible_role_mysql.db_password }} -e "set global sql_mode=\'NO_ENGINE_SUBSTITUTION\';"'
               state=present
   tags: configure
 
