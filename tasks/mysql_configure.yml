@@ -9,6 +9,8 @@
 # be picked up when mysqld is run under Ubuntu 16.04.
 # Prove that this works by starting a mysql session and running:
 #  SELECT @@sql_mode;
+
+# Ubuntu 14.04
 # - name: ensure craft cms works with sql mode
 #   lineinfile: dest=/lib/systemd/system/mysql.service
 #               regexp='^ExecStart=\/usr\/sbin\/mysqld'
@@ -16,6 +18,7 @@
 #               state=present
 #   tags: configure
 
+# Ubuntu 16.04
 - name: ensure craft cms works with sql mode
   lineinfile: dest=/usr/share/mysql/mysql-systemd-start
               regexp='mysql -u administrator'
